@@ -38,7 +38,7 @@ Additional features include AI-generated thumbnails and video upscaling using ot
 - **Python Flask:** The backend API will be built using the Flask framework. Flask provides a lightweight and flexible framework, making it an excellent choice for the project.
 - **Celery:** Given the nature of the AI tasks being performed, these tasks will be managed using Celery. This will ensure that time-consuming tasks such as video transcription and caption generation are performed asynchronously, improving the efficiency of the system.
 - **Redis:** Redis will be used as the message broker for Celery. It will also provide caching functionalities to speed up the system.
-- **PostgreSQL:** The application's data will be stored in a PostgreSQL database. PostgreSQL is a robust and reliable database system that can handle complex data workloads.
+- **PostgresML:** The application's data will be stored in a PostgresML database. PostgresML is a robust and reliable database system that can handle complex data workloads.
 - **MindsDB**: Optionally MindsDB will be used due to it being highly optimized and configured for AI applications such PostMe!.
 
 ### Frontend
@@ -59,7 +59,7 @@ Additional features include AI-generated thumbnails and video upscaling using ot
   - Implement endpoints that call Descript's API for video transcription.
   - Implement endpoints that communicate with GPT-4 for caption generation.
   - Use Celery and Redis for managing and speeding up AI tasks.
-  - Store application data in a PostgreSQL database.
+  - Store application data in a PostgresML database.
 
 ## Frontend
 - **ReactJS:** 
