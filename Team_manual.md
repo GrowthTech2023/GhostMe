@@ -369,3 +369,15 @@ Here's a more detailed breakdown of the functionality of each of the main files:
 
 I have checked this structure multiple times to ensure it meets all our project requirements. It should give us a robust and scalable foundation for our application.
 Frontend dev can always change what's needed
+
+
+
+====================================
+Jason's notes
+
+this is what the user sees and deos on the dashboard
+
+Connects either of 4 socials -- Instagram, Facebook, TikTok and YouTube (Top of page)
+Upload their video (right under the connect tab, and is the far left side within the page margin)
+Add optional prompt (this text field area with a palceholder, this section is in the middle)
+on the rightside is a vertical beautiful tab where users can select which platform they want to post to (this gives them more flexibility to decide wether tha tparticular post should go on which platofrom)
