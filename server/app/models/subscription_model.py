@@ -1,5 +1,6 @@
 # Subscription model
 # read https://medium.com/@mishraranjeet122/integrate-stripe-payment-with-a-card-in-python-e90989d39bca
+# https://stripe.com/docs/development/quickstart?lang=python
 from sqlalchemy import Column, Integer, String, ForeignKey
 from sqlalchemy.orm import relationship
 from . import Base

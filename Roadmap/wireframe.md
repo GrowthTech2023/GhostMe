@@ -11,8 +11,8 @@
 
 
 3. Video Transcription:
-    - The uploaded video is sent to the backend.
-    - The backend invokes the Descript API to transcribe the video.
+    - The uploaded video is sent to the server.
+    - The server invokes the Descript API to transcribe the video.
     - The transcription result is stored in the PostgreSQL database.
 
 

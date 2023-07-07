@@ -31,8 +31,8 @@ The video, along with the platform-specific captions, is then posted on each pla
 Additional features include AI-generated thumbnails and video upscaling using other AI plugins.
 
 Tech Stack
-Backend
-Python Flask: The backend API will be built using the Flask framework. Flask provides a lightweight and flexible framework, making it an excellent choice for the project.
+server
+Python Flask: The server API will be built using the Flask framework. Flask provides a lightweight and flexible framework, making it an excellent choice for the project.
 Celery: Given the nature of the AI tasks being performed, these tasks will be managed using Celery. This will ensure that time-consuming tasks such as video transcription and caption generation are performed asynchronously, improving the efficiency of the system.
 Redis: Redis will be used as the message broker for Celery. It will also provide caching functionalities to speed up the system.
 PostgreSQL: The application's data will be stored in a PostgreSQL database. PostgreSQL is a robust and reliable database system that can handle complex data workloads.
@@ -46,7 +46,7 @@ Sign-in Page: Users will be able to sign in to their account using their email a
 
 Dashboard: After signing in, users will be taken to a dashboard where they can upload videos, generate captions, and post their content to various platforms.
 
-Backend
+server
 Python Flask:
 Develop an API that receives video files and user prompts from the frontend.
 Implement endpoints that call Descript's API for video transcription.
@@ -71,8 +71,8 @@ WIREFRAME AND FLOW
     - The user uploads their video and optionally provides a prompt.
 
 3. Video Transcription:
-    - The uploaded video is sent to the backend.
-    - The backend invokes the Descript API to transcribe the video.
+    - The uploaded video is sent to the server.
+    - The server invokes the Descript API to transcribe the video.
     - The transcription result is stored in the PostgreSQL database.
 
 4. GPT-4 Caption Generation:
@@ -154,25 +154,25 @@ For example, "LangChain Integration and Content Refinement" depends on the compl
 
 ### Files/directories and discuss their purpose:
 
-1. `backend/app.py`:
+1. `server/app.py`:
 This is the main file for the Flask application. It's responsible for setting up and configuring the Flask app and the database. It will also handle routing to different endpoints in your application.
 
-2. `backend/requirements.txt`:
+2. `server/requirements.txt`:
 This file contains a list of Python packages required for the project. It typically includes Flask, Celery, Redis, SQLAlchemy (for ORM), psycopg2 (for PostgreSQL), and other packages your project might require.
 
-3. `backend/models/`:
+3. `server/models/`:
 This directory will contain the database models for your application. These models will represent the data structures in your database.
 
    - `user.py`: Defines the User model, which includes fields such as user ID, email, and password.
    - `video.py`: Defines the Video model, which includes fields such as video ID, user ID, video file, and video transcription.
 
-4. `backend/routes/`:
+4. `server/routes/`:
 This directory will contain the routes for your application.
 
    - `auth_routes.py`: Contains the routes for user authentication, including sign up, login, and logout.
    - `video_routes.py`: Contains the routes for video-related tasks, such as video upload, video transcription, and video posting.
 
-5. `backend/services/`:
+5. `server/services/`:
 This directory will contain the services that handle the business logic for your application.
 
    - `transcription_service.py`: Handles the logic for transcribing videos using the Descript API.
@@ -181,7 +181,7 @@ This directory will contain the services that handle the business logic for your
    - `agent_service.py`: Handles the tasks related to the four social media platform agents.
    - `schedule_service.py`: Handles the logic for scheduling video posts using the chosen scheduling API.
 
-6. `backend/utils/`:
+6. `server/utils/`:
 This directory will contain the utility files for your application.
 
    - `celery_config.py`: Contains the configuration for Celery.
@@ -212,16 +212,16 @@ This file contains the CSS styles for your application.
 
 Remember, this is a rough guide to get you started. You will have to modify and add to it as per your project's needs. For example, you might need to add more services or components based on your requirements. 
 
-It's also important to note that all the logic related to communication with APIs (like GPT-4, LangChain, and Descript), database operations, and task scheduling should ideally be handled in the backend. This would ensure that sensitive data
+It's also important to note that all the logic related to communication with APIs (like GPT-4, LangChain, and Descript), database operations, and task scheduling should ideally be handled in the server. This would ensure that sensitive data
 
-like API keys and database credentials are not exposed in the client-side code. The frontend should primarily focus on UI/UX aspects, and communicate with the backend through API calls to fetch or manipulate data.
+like API keys and database credentials are not exposed in the client-side code. The frontend should primarily focus on UI/UX aspects, and communicate with the server through API calls to fetch or manipulate data.
 
 12. `README.md`:
 This is the documentation file where you provide information about the project, how to set it up and run it, and any other relevant details.
 
-### Backend services and routes files in more detail:
+### server services and routes files in more detail:
 
-#### Backend Services:
+#### server Services:
 
 - `transcription_service.py`: This service will communicate with the Descript API. When a video is uploaded, this service will be responsible for sending the video to Descript, receiving the transcription, and saving it in the database associated with the video.
 
@@ -233,7 +233,7 @@ This is the documentation file where you provide information about the project, 
 
 - `schedule_service.py`: This service will handle video posting schedule. Based on the user's choice and the data from the `agent_service`, it will determine the best time to post a video. It will then schedule the video for posting at that time using a task queue (like Celery) and a message broker (like Redis).
 
-#### Backend Routes:
+#### server Routes:
 
 - `auth_routes.py`: This file will handle the authentication routes. It will have routes for user registration (sign up), login, and logout. These routes will interact with the User model to create a new user, authenticate a user, or log out a user.
 
@@ -243,11 +243,11 @@ In the frontend, each component file will represent a part of your application's
 
 - `Dashboard.js`: This component will display the main dashboard to the user. It will show the list of uploaded videos and their status (transcribed, captioned, scheduled for posting, etc.). It will also provide options to navigate to other parts of the application.
 
-- `VideoUploader.js`: This component will allow the user to upload a video. It will provide a file input to select the video file, and a form to input the video details. When the video is uploaded, it will call the video upload route in the backend.
+- `VideoUploader.js`: This component will allow the user to upload a video. It will provide a file input to select the video file, and a form to input the video details. When the video is uploaded, it will call the video upload route in the server.
 
-- `VideoEditor.js`: This component will allow the user to add a prompt to a video and review/edit the AI-generated captions. It will provide a text input for the prompt and a text area for the captions. It will call the appropriate routes in the backend to generate and edit the captions.
+- `VideoEditor.js`: This component will allow the user to add a prompt to a video and review/edit the AI-generated captions. It will provide a text input for the prompt and a text area for the captions. It will call the appropriate routes in the server to generate and edit the captions.
 
-- `PostScheduler.js`: This component will allow the user to schedule a video for posting. It will provide options to select the posting time and the social media platforms. It will call the appropriate route in the backend to schedule the video.
+- `PostScheduler.js`: This component will allow the user to schedule a video for posting. It will provide options to select the posting time and the social media platforms. It will call the appropriate route in the server to schedule the video.
 
 
 ========================================================================================================================================================================================================================================================================================================================================================================================================
@@ -255,7 +255,7 @@ In the frontend, each component file will represent a part of your application's
 
 ```bash
 /postme
-├── /backend
+├── /server
 │   ├── /app
 │   │   ├── __init__.py  # Initialize your Flask application here
 │   │   ├── /api
@@ -317,9 +317,9 @@ In the frontend, each component file will represent a part of your application's
 
 Here is a brief overview of what each directory and file will do:
 
-1. The `backend` directory will contain all the server-side code written in Python Flask.
+1. The `server` directory will contain all the server-side code written in Python Flask.
 
-2. The `app` directory inside `backend` will contain the main application code.
+2. The `app` directory inside `server` will contain the main application code.
 
 3. The `api` directory inside `app` will contain all the API endpoints required by the front-end.
 

@@ -57,7 +57,7 @@
 3. Run your tests frequently during development to catch and fix issues early.
 
 #### Task 11: Deployment
-1. Choose a hosting platform for your backend (e.g., AWS, Google Cloud, Heroku).
+1. Choose a hosting platform for your server (e.g., AWS, Google Cloud, Heroku).
 2. Follow the hosting platform's instructions to deploy your Flask application. This will typically involve setting up a new instance or app, installing your dependencies, and deploying your code.
 3. Test your deployed application to make sure everything works correctly. This will likely involve calling your endpoints and checking the responses, as well as monitoring the logs and performance metrics provided by the hosting platform.
 

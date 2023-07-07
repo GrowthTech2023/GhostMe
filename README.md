@@ -34,8 +34,8 @@ Additional features include AI-generated thumbnails and video upscaling using ot
 
 ## Tech Stack
 
-### Backend
-- **Python Flask:** The backend API will be built using the Flask framework. Flask provides a lightweight and flexible framework, making it an excellent choice for the project.
+### server
+- **Python Flask:** The server API will be built using the Flask framework. Flask provides a lightweight and flexible framework, making it an excellent choice for the project.
 - **Celery:** Given the nature of the AI tasks being performed, these tasks will be managed using Celery. This will ensure that time-consuming tasks such as video transcription and caption generation are performed asynchronously, improving the efficiency of the system.
 - **Redis:** Redis will be used as the message broker for Celery. It will also provide caching functionalities to speed up the system.
 - **PostgresML:** The application's data will be stored in a PostgresML database. PostgresML is a robust and reliable database system that can handle complex data workloads.
@@ -53,7 +53,7 @@ Additional features include AI-generated thumbnails and video upscaling using ot
 
 2. **Dashboard:** After signing in, users will be taken to a dashboard where they can upload videos, generate captions, and post their content to various platforms.
 
-## Backend
+## server
 - **Python Flask:** 
   - Develop an API that receives video files and user prompts from the frontend.
   - Implement endpoints that call Descript's API for video transcription.

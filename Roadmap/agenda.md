@@ -4,7 +4,7 @@ Plan for the next 5 days starting from Friday, June 30, 2023.
 **Day 1: Friday, June 30, 2023 - Project Setup**
 
 - Task 1.1: Set up the project repository and basic project structure.
-- Task 1.2: Create a Flask application and set up the basic routing for the backend.
+- Task 1.2: Create a Flask application and set up the basic routing for the server.
 - Task 1.3: Set up a PostgreSQL database and design the basic schema for video, user, and content data.
 - Task 1.4: Set up the basic structure of the React application for the frontend.
 - Task 1.5: Wrap up the day with a team meeting to review progress and plan for the next day.
@@ -19,7 +19,7 @@ Plan for the next 5 days starting from Friday, June 30, 2023.
 
 **Day 3: Sunday, July 2, 2023 - Video Transcription and Caption Generation**
 
-- Task 3.1: Implement the backend functionality to transcribe uploaded videos using Descript's API.
+- Task 3.1: Implement the server functionality to transcribe uploaded videos using Descript's API.
 - Task 3.2: Design and implement the user prompt input feature.
 - Task 3.3: Set up communication with GPT-4 and implement functionality to generate captions based on the transcription and user prompt.
 - Task 3.4: Store the generated captions and transcription in the PostgreSQL database.
