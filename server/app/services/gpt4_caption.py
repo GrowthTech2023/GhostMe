@@ -1,5 +1,6 @@
 # All caption generation logic: calls to GPT-4 API, etc
 from app import secrets
+from app.services import descript_transcription 
 import openai
 import json
 
@@ -18,7 +19,7 @@ def generate_caption(transcript, prompt, max_length=150):
     Returns:
     - A string representing the generated caption.
     """
-    # Combine transcript and user prompt to create GPT-3 prompt
+    # Combine transcript and user prompt to create GPT-3 prompt | trascription comes from Descript API, passed as "trascripton"
     gpt_prompt = f"{transcript}\n{prompt}\nCaption:"
 
     # Call OpenAI API to generate caption
