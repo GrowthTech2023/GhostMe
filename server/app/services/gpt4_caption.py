@@ -22,7 +22,7 @@ def generate_caption(transcript, prompt, max_length=150):
     gpt_prompt = f"{transcript}\n{prompt}\nCaption:"
 
     # Call OpenAI API to generate caption
-    response = openai.Completion.create(
+    response = openai.getChatCompletion(
         engine="gpt-3.5-turbo",
         prompt=gpt_prompt,
         temperature=0.5,
