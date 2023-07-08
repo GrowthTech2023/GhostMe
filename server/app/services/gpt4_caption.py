@@ -1,5 +1,5 @@
 # All caption generation logic: calls to GPT-4 API, etc
-from app.
+from app import secrets
 import openai
 import json
 
@@ -8,7 +8,7 @@ openai.api_key = 'openai_secret_key'
 
 def generate_caption(transcript, prompt, max_length=150):
     """
-    Generate caption using GPT-3 model.
+    Generate caption using GPT-3.5-turbo model.
 
     Parameters:
     - transcript: The transcript of the video
