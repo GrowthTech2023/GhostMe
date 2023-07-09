@@ -1,18 +1,15 @@
 # All caption generation logic: calls to GPT-4 API, etc
-# from app import secrets
 # from app.services import descript_transcription
-import json
-import openai
 import os
+import openai
 from dotenv import load_dotenv
 
 load_dotenv()
 
 # Set your OpenAI secret key
-openai.api_key = os.getenv('OPENAI_API_KEY')
+openai.api_key = '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'
 
-
-def generate_caption(transcript, prompt, max_length=150):
+def generate_caption(transcript, prompt, max_length=150, model="gpt-3.5-turbo"):
     """
     Generate caption using GPT-3.5-turbo model.
 
@@ -24,19 +21,21 @@ def generate_caption(transcript, prompt, max_length=150):
     Returns:
     - A string representing the generated caption.
     """
-    # Combine transcript and user prompt to create GPT-4 prompt | transcription comes from Descript API, passed as "transcript"
-    user_prompt = f"{transcript}\n{prompt}\nCaption:"
+    # Combine transcript and user prompt to create GPT-3.5-turbo prompt. Transcription comes from Descript API, passed as "transcript".
+    messages = [
+        {"role": "system", "content": transcript},
+        {"role": "user", "content": prompt}
+    ]
 
     # Call OpenAI API to generate caption
-    response = openai.getChatCompletion(
-        model="gpt-3.5-turbo",
-        prompt=user_prompt,
-        temperature=0.5,
-        max_tokens=150,
+    response = openai.ChatCompletion.create(
+        model=model,
+        messages=messages,
+        max_tokens=max_length,
     )
 
     # Extract and return the generated caption
-    caption = response.choices[0].text.strip()
+    caption = response['choices'][0]['message']['content'].strip()
     return caption
 
 
