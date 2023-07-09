@@ -235,26 +235,62 @@ For example, "LangChain Integration and Content Refinement" depends on the compl
 
 Here is a brief overview of what each directory and file will do:
 
-### Files/directories and discuss their purpose:
+### Files and client and discuss their purpose:
+## Client Directory
+1. **`package.json`**: Contains the list of dependencies that the React app needs, as well as scripts for starting, building, and testing the app.
+2. **`package-lock.json`**: Ensures that the installed dependencies match the ones in `package.json` for consistent environments.
+3. **`src/App.js`**: Serves as the root component of the React application. It is where the main layout of the application resides, including the navigation and routing.
+4. **`src/index.js`**: Renders the `App.js` component into the root of the `index.html` file.
+5. **`src/components`**: Contains all React components that build up the UI of the application.
 
-GPT TO FILL IN THIS INFO SECTION BASED ON WORKING TREE
+    - **`auth/Login.js`**: Handles the login process of users by interfacing with the backend's authentication service.
+    - **`auth/Register.js`**: Handles the registration process of new users by interfacing with the backend's user creation service.
+    - **`caption/CaptionGenerate.js`**: Takes the uploaded video transcript and user-provided prompt, sends them to GPT-4, receives the generated captions, and displays them to the user.
+    - **`dashboard/Dashboard.js`**: Renders the user dashboard where users can connect their social media accounts, upload videos, provide a prompt, and post their content.
+    - **`post/PostCreate.js`**: Allows users to create a new post by providing a video and optional prompt. It then sends this data to the backend for processing.
+    - **`video/VideoUpload.js`**: Provides a form for users to upload their videos. Once a video is uploaded, it's sent to the backend for transcription.
+    - **`video/VideoList`**: Displays a list of videos that the user has uploaded and their current processing status.
 
 ### server services and routes files in more detail:
+## Server Directory
+1. **`app.py`**: Creates the Flask application and sets up the database connection.
+2. **`config.py`**: Contains configuration variables for the Flask application and database connection.
+3. **`app/__init__.py`**: Initializes the Flask application and its blueprints.
+4. **`app/api/routes.py`**: Defines the endpoints for the Flask application, such as user registration, login, video upload, and caption generation.
+5. **`app/auth/auth_service.py`**: Handles the registration and login processes by validating user input and interacting with the user database model.
+6. **`app/auth/dashboard_service.py`**: Handles requests from the user's dashboard, such as fetching the user's social media connections and videos.
+7. **`app/models`**: Contains the ORM models for the application's PostgreSQL database.
 
-#### server Services:
+    - **`user_model.py`**: Defines the user model including fields like username, email, password, etc., and methods for handling password hashing and verification.
+    - **`social_platform_model.py`**: Defines the model for storing user's social media accounts.
+    - **`subscription_model.py`**: Defines the model for storing user's subscription status and details.
+    - **`video_model.py`**: Defines the model for storing uploaded video details and generated captions.
+8. **`app/secrets/client_secret_978165118544-hje1b6kr557sdem81ig9n2ik9qm5udki.apps.googleusercontent.com.json`**: Contains the client secret for Google OAuth.
+9. **`app/services`**: Contains services that handle the core business logic of the application.
 
-GPT TO FILL IN THIS INFO SECTION BASED ON WORKING TREE
+    - **`agents/facebook_agent_service.py`**: Communicates with the Facebook API to post content and fetch platform-specific rules.
+    - **`agents/instagram_agent_service.py`**: Communicates with the Instagram API to post content and fetch platform-specific rules.
+    - **`agents/tiktok_agent_service.py`**: Communicates with the TikTok API to post content and fetch platform-specific rules.
+    - **`agents/threads_agent.py`**: Communicates with the Threads API to post content and fetch platform-specific rules.
+    - **`agents/youtube-shorts_agent_service.py`**: Communicates with the YouTube API to post content and fetch platform-specific rules.
+    - **`descript_transcription.py`**: Sends the uploaded video to Descript's API for transcription, receives the transcription and saves it in a PostgreSQL database.
+    - **`gpt4_caption.py`**: Sends the video transcript and user-provided prompt to GPT-4, receives the generated captions, and sends them to LangChain for refinement.
+    - **`lang_chain_service.py`**: Receives initial captions from GPT-4, sends them to social media agents for feedback, and sends the feedback to GPT-4 for caption refinement.
+    - **`schedule_service.py`**: Determines the optimal post times based on real-time platform usage and engagement.
+    - **`video_service.py`**: Handles video upload requests, initiates video transcription, and stores the video details in the database.
+10. **`utils/error_handler.py`**: Handles any errors that occur during the execution of the application.
+11. **`utils/logger.py`**: Logs application events, such as login, registration, video upload, and caption generation.
 
 ================================================================================================================================================================================================================================================================================================================================
 
 ====================================
 
 ## SECTION 5
-Jason's notes
+Additional Notes on UI
 
 this is what the user sees and deos on the dashboard
 
 Connects either of 5 socials -- Instagram, Threads, Facebook, TikTok and YouTube (Top of page)
 Upload their video (right under the connect tab, and is the far left side within the page margin)
-Add optional prompt (this text field area with a palceholder, this section is in the middle)
-on the rightside is a vertical beautiful tab where users can select which platform they want to post to (this gives them more flexibility to decide wether tha tparticular post should go on which platofrom)
+Add optional prompt (this text field area with a placeholder, this section is in the middle)
+on the right side is a vertical beautiful tab where users can select which platform they want to post to (this gives them more flexibility to decide wether tha tparticular post should go on which platofrom)
