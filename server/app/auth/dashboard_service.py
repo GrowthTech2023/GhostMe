@@ -1,4 +1,11 @@
 # Dashboard logic: user uploads, caption generation, post generation
+# this is what the user sees and deos on the dashboard
+#
+# Connects either of 5 socials -- Instagram, Threads, Facebook, TikTok and YouTube (Top of page)
+# Upload their video (right under the connect tab, and is the far left side within the page margin)
+# Add optional prompt (this text field area with a placeholder, this section is in the middle)
+# on the right side is a vertical beautiful tab where users can select which platform they want to post to (this gives them more flexibility to decide wether tha tparticular post should go on which platofrom)
+
 from ..models.video_model import Video
 from ..models.social_platform_model import SocialPlatform
 

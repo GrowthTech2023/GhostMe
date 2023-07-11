@@ -29,7 +29,7 @@ def upload():
     # Handle video upload logic
     return 'Video upload route'
 
-@gpt_routes.route('/prpmpt', methods=['POST'])
+@gpt_routes.route('/prompt', methods=['POST'])
 def upload():
     # Handle video upload logic
     return 'Video upload route'

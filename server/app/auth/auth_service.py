@@ -1,14 +1,18 @@
 import os
+from logging import info
+from wsgiref import headers
+
 import requests
+import uri as uri
 from flask import Flask, redirect, request, render_template, url_for, flash, session
 from oauthlib.oauth2 import WebApplicationClient
-from dotenv import load_dotenv
+from dotenv import load_dotenv, find_dotenv
 import json
-from flask_login import LoginManager, login_user, logout_user, login_required
+from flask_login import LoginManager, login_user, logout_user, login_required, UserMixin
 
 login_manager = LoginManager()
 
-load_dotenv('../secrets/.env')
+load_dotenv(find_dotenv())
 app = Flask(__name__, template_folder='../../templates', static_folder='../../static')
 login_manager.init_app(app)
 app.secret_key = os.getenv("APP_SECRET_KEY")  # read secret key from .env file
@@ -17,6 +21,26 @@ GOOGLE_CLIENT_ID = os.getenv("GOOGLE_CLIENT_ID")
 GOOGLE_CLIENT_SECRET = os.getenv("GOOGLE_CLIENT_SECRET")
 FACEBOOK_CLIENT_ID = os.getenv("FACEBOOK_CLIENT_ID")
 FACEBOOK_CLIENT_SECRET = os.getenv("FACEBOOK_CLIENT_SECRET")
+
+
+class User(UserMixin):  # fecth from database
+    def __init__(self, email):
+        self.id = email
+
+    @classmethod
+    def get(cls, email):
+        # TODO: Implement this method to get a user from your database
+        return cls(email)
+
+    @classmethod
+    def create(cls, email):
+        # TODO: Implement this method to create a new user in your database
+        return cls(email)
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.get(user_id)
+
 
 GOOGLE_DATA = {
         'response_type': "code",  # this tells the auth server that we are invoking authorization workflow
@@ -61,6 +85,20 @@ FACEBOOK_REQ_URI = FACEBOOK_CLIENT.prepare_request_uri(
 # def load_user(user_id):
 #     return User.get(user_id)
 
+user = User.get(info['email'])
+if user is None:
+    user = User.create(info['email'])
+    # TODO: Store other user data and tokens
+login_user(user)
+
+# Error handling
+try:
+    response_user_info = requests.get(uri, headers=headers, data=body)
+    response_user_info.raise_for_status()  # This will raise a HTTPError if the response was an error
+except requests.exceptions.HTTPError as err:
+    flash(f"HTTP error occurred: {err}")  # Flash a message to the user
+except Exception as err:
+    flash(f"An error occurred: {err}")  # Flash a message to the user
 
 @app.route('/welcome')
 def welcome():
