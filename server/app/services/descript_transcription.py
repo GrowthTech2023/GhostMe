@@ -1,9 +1,10 @@
-# All transcription logic: Descript API calls, etc
-from descript_api import Client
-import os
-from dotenv import load_dotenv
+# descript_transcription.py
 
-from app.models import db, Video  
+from descript_api import Client, DescriptException
+import os
+from dotenv import load_dotenv 
+
+from app.models import db, Video
 
 load_dotenv()
 
@@ -12,40 +13,44 @@ DESCRIPTIVE_API_KEY = os.getenv("DESCRIPTIVE_API_KEY")
 client = Client(DESCRIPTIVE_API_KEY)
 
 def start_transcription(video):
-  """Start async transcription job for video"""
 
-  response = client.overdub_generate_async(
-    text=video.title,
-    voice_id=video.voice_id
-  )
+  try:
+    response = client.overdub_generate_async(
+      text=video.title,  
+      voice_id=video.voice_id
+    )
+  except DescriptException as e:
+    # Handle any client errors 
+    print(e)
+    return
 
-  video.transcription_job_id = response.id
-  db.session.commit()
+  if response.status_code == 201:
+    video.transcription_job_id = response.id
+    db.session.commit()
+  else:
+    print(f"Error starting transcription, status {response.status_code}")  
 
 def check_transcription_status(video):
-  """Check status of transcription job"""
 
   if not video.transcription_job_id:
     return
 
-  response = client.overdub_generate_async_get(
-    overdub_id=video.transcription_job_id
-  )
+  try:
+    response = client.overdub_generate_async_get(
+      overdub_id=video.transcription_job_id  
+    )
+  except DescriptException as e:
+    # Handle errors
+    print(e)
+    return
 
-  if response.state == 'done':
-    video.transcription_text = response.url 
+  if response.status_code == 200:
+    # Transcription succeeded
+    video.transcription_text = response.url
     db.session.commit()
+  elif response.status_code == 404:
+    print("Transcription job not found")
+  else:
+    print(f"Error checking status, status {response.status_code}")
 
-def transcribe_video(video):
-  """Main entry point"""
-
-  start_transcription(video)
-
-  # Poll every few seconds until done
-  while True:
-    check_transcription_status(video)
-    if video.transcription_text:
-      break
-    time.sleep(5)
-
-  return video.transcription_text
+# Rest of service code...
