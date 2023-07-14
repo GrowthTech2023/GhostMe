@@ -1,10 +1,10 @@
-# User model
-from sqlalchemy import Column, Integer, String
-from . import Base
+from models import db
 
-class User(Base):
-    __tablename__ = 'users'
-    id = Column(Integer, primary_key=True)
-    email = Column(String, unique=True)
-    password = Column(String)
+class User(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(50), nullable=False)
+    email = db.Column(db.String(120), unique=True, nullable=False)
+    password = db.Column(db.String(128), nullable=False)
 
+    def __repr__(self):
+        return f"<User {self.email}>"

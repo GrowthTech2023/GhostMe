@@ -6,59 +6,40 @@
 # Add optional prompt (this text field area with a placeholder, this section is in the middle)
 # on the right side is a vertical beautiful tab where users can select which platform they want to post to (this gives them more flexibility to decide wether tha tparticular post should go on which platofrom)
 
-from ..models.video_model import Video
-from ..models.social_platform_model import SocialPlatform
+# dashboard_service.py
 
-def connect_social_account(user_id, platform_name, access_token):
-    # Connect the user's social media account
-    platform = SocialPlatform.query.filter_by(name=platform_name).first()
-    if not platform:
-        return None, 'Invalid social media platform'
+from app import db
+from models import User, Video, SocialPlatform
+from flask_login import current_user
 
-    # Save the user's access token for the platform
-    platform.access_token = access_token
-    db.session.commit()
+@app.route('/connect/<platform>')
+def connect_platform(platform):
 
-    return platform, None
+  # Handle OAuth flow for platform
+  # Get access token
+  
+  social_platform = SocialPlatform(
+    user_id=current_user.id,
+    platform=platform,
+    access_token=access_token
+  )
 
-def upload_video(user_id, video_file):
-    # Upload the video file
-    video = Video(user_id=user_id, video_file=video_file)
-    db.session.add(video)
-    db.session.commit()
+  db.session.add(social_platform)
+  db.session.commit()
 
-    return video, None
+  return {"message": "Platform connected"}
 
-def add_prompt(video_id, prompt):
-    # Add a prompt to the video
-    video = Video.query.get(video_id)
-    if not video:
-        return None, 'Video not found'
+@app.route('/upload', methods=['POST'])  
+def upload_video():
 
-    video.prompt = prompt
-    db.session.commit()
+  video_file = request.files['video']
 
-    return video, None
+  video = Video(
+    user_id=current_user.id,
+    video_file=video_file
+  )
 
-def get_user_social_platforms(user_id):
-    # Get the social media platforms connected by the user
-    platforms = SocialPlatform.query.filter_by(user_id=user_id).all()
-    return platforms
+  db.session.add(video)
+  db.session.commit()
 
-def create_post(video_id, platform_id):
-    # Create a post for the selected platform
-    video = Video.query.get(video_id)
-    platform = SocialPlatform.query.get(platform_id)
-    if not video or not platform:
-        return None, 'Invalid video or platform'
-
-    # Create a post using the video and platform information
-    post = {
-        'video_id': video.id,
-        'platform_id': platform.id,
-        'video_url': video.url,
-        'platform_name': platform.name,
-        # Add more fields specific to the platform if needed
-    }
-
-    return post, None
+  return {"message": "Video uploaded"}

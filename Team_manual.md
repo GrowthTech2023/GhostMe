@@ -5,14 +5,18 @@ Objective
 This is an AI tool for content creators. The primary objective of the project is to develop an AI-powered tool that helps content creators to generate platform-specific captions and descriptions for their videos. The tool will utilize GPT-4, LangChain, and Descript's API for video transcription, and the generated captions will be tailored to meet the specific requirements of various social media platforms.
 
 Project Components
+0. The platform selection tabs will have icons representing each platform. Allow multiple selections so users can post to different platforms.
+
 1. Video Upload
 Content creators upload their video content to our platform.
 
 2. Video Transcription
 After a video is uploaded, the content of the video will be transcribed using Descript's API. The transcriptions provide necessary context to GPT-4 to generate relevant captions.
+The video upload section will have a drag and drop interface for simplicity. Show video thumbnail previews after uploading.
 
 3. User Prompt
 Content creators can add a prompt telling GPT-4 what they want the video to convey. The prompt could be something like: “write me captions in the voice of Steve Jobs about why the MacBook is the best computer in the world”.
+The prompt input can be a textarea that clearly explains its purpose to users. Make it optional.
 
 4. GPT-4 Caption Generation
 The user prompt along with the video transcription is sent to GPT-4. GPT-4 generates captions in response to the user's request.
@@ -26,10 +30,22 @@ Each social media platform (Facebook, Instagram, Twitter, and TikTok.) has its o
 7. Caption Finalization
 GPT-4 tailors the captions to fit the specific constraints of each platform based on the information received from the social media agents via LangChain. Once the captions are finalized, they are added to the video.
 
-8. Video Posting
+8. Add a preview section that shows how the final captions/text will look on different platforms after processing.
+Include options to edit the generated captions before posting.
+
+9. The scheduling section should have a calendar picker to select dates/times. Show suggested best times and allow custom scheduling.
+
+10. Video Posting
 The video, along with the platform-specific captions, is then posted on each platform when the user clicks "Post"
 
-9. Additional Features
+### Principles
+- Use clean, minimalist UI elements in line with platform branding. Follow Material Design principles for usability.
+- Make use of animations and transitions to enhance UX and provide user feedback.
+- Implement responsive design to optimize on all device sizes. Focus on mobile experience.
+- Carefully plan information architecture and intuitive navigation between sections.
+
+
+- Additional Features
 Additional features include AI-generated thumbnails and video upscaling using other AI plugins.
 
 Tech Stack

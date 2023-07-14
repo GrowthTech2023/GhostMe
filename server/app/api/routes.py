@@ -1,35 +1,66 @@
-# All API endpoints are defined here
 from flask import Blueprint, request
+from .models import User
+from .dashboard_service import connect_platform, upload_video
 
-auth_routes = Blueprint('auth', __name__, url_prefix='/api/auth')
-video_routes = Blueprint('video', __name__, url_prefix='/api/video')
+auth_routes = Blueprint('auth', __name__)
 
-@auth_routes.route('/signup', methods=['POST'])
+@auth_routes.route('/signup', methods=['POST'])  
 def signup():
-    # Handle user signup logic
-    return 'User signup route'
+  # Get user data from request
+  name = request.json['name']
+  email = request.json['email']  
+  password = request.json['password']
+
+  # Validate input
+  if not is_valid(name, email, password):
+    return {"error": "Invalid input"}, 400 
+
+  # Create new user
+  user = User(name=name, email=email, password=password)
+  db.session.add(user)
+  db.session.commit()
+
+  return {"message": "User created"}
 
 @auth_routes.route('/login', methods=['POST'])
 def login():
-    # Handle user login logic
-    return 'User login route'
+  # Get input
+  email = request.json['email']
+  password = request.json['password']
+
+  # Validate input  
+  if not is_valid(email, password):
+    return {"error": "Invalid credentials"}, 400
+
+  # Check if user exists with given email
+  user = User.query.filter_by(email=email).first()
+  if not user:
+    return {"error": "User not found"}, 404
+  
+  # Check if password is correct
+  if not user.check_password(password):
+    return {"error": "Invalid password"}, 401
+
+  # Login user
+  login_user(user)
+
+  return {"message": "Logged in successfully"} 
 
 @auth_routes.route('/logout', methods=['POST'])
 def logout():
-    # Handle user logout logic
-    return 'User logout route'
+  logout_user()
+  return {"message": "Logged out"}
 
-@video_routes.route('/upload', methods=['POST'])
-def upload():
-    # Handle video upload logic
-    return 'Video upload route'
+@auth_routes.route('/connect/<platform>', methods=['POST'])
+def connect_platform(platform):
+  # Get access token
+  access_token = request.json['access_token']
 
-@transcribe_routes.route('/descript_api', methods=['POST'])
-def upload():
-    # Handle video upload logic
-    return 'Video upload route'
+  # Connect platform
+  connect_platform(platform, access_token)  
 
-@gpt_routes.route('/prompt', methods=['POST'])
-def upload():
-    # Handle video upload logic
-    return 'Video upload route'
+  return {"message": "Platform connected"}
+
+@auth_routes.route('/upload', methods=['POST'])
+def upload_video():
+  return upload_video()
