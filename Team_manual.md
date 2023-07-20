@@ -310,3 +310,60 @@ Connects either of 5 socials -- Instagram, Threads, Facebook, TikTok and YouTube
 Upload their video (right under the connect tab, and is the far left side within the page margin)
 Add optional prompt (this text field area with a placeholder, this section is in the middle)
 on the right side is a vertical beautiful tab where users can select which platform they want to post to (this gives them more flexibility to decide wether tha tparticular post should go on which platofrom)
+
+
+===============================================
+now lets move to the agents side
+
+facebook_agent_service.py
+
+instagram_agent_service.py
+
+threads_agent.py
+
+tiktok_agent_service.py
+
+youtube-shorts_agent_service.py
+
+per the project requirements they will be communicating with langchainEach agent reviews the draft content and provides feedback based on platform-specific requirements.
+
+ LangChain compiles the feedback and sends it back to GPT-4
+
+What are the platform requiremtns?
+
+1. Facebook
+
+1. `FaceBook`
+    - Description length
+    - Number of paragraphs (if description length needs to be long)
+    - Hashtags - based on context goten from transcription
+    - Tags
+    - Keywords
+
+2. `Instagram`
+    - Description length
+    - Number of paragraphs (Instagram length needs to be long with at least 3 paragraphs)
+    - Hashtags - based on context gotten from transcription
+    - Tags
+    - Keywords
+
+3. `TikTok`
+    - Description length
+    - Number of paragraphs (TikTok likes one sentence captions )
+    - Hashtags - based on context gotten from transcription
+    - Tags
+    - Keywords
+
+4. `Threads`
+    - Description length
+    - Number of paragraphs (if description length needs to be long)
+    - Hashtags - based on context gotten from transcription
+    - Tags
+    - Keywords
+
+5. `YouTube Shorts`
+    - Description length
+    - Number of paragraphs (if description length needs to be long)
+    - Hashtags - based on context gotten from transcription
+    - Tags
+    - Keywords
