@@ -331,8 +331,6 @@ per the project requirements they will be communicating with langchainEach agent
 
 What are the platform requiremtns?
 
-1. Facebook
-
 1. `FaceBook`
     - Description length
     - Number of paragraphs (if description length needs to be long)
