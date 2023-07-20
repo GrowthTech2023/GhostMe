@@ -173,24 +173,27 @@ For example, "LangChain Integration and Content Refinement" depends on the compl
 ```bash
 /PostMe
 ├── client
+│   ├── desktop
+│   ├── mobile
 │   ├── package.json
 │   ├── package-lock.json
-│   └── src
-│       ├── App.js
-│       ├── components
-│       │   ├── auth
-│       │   │   ├── Login.js
-│       │   │   └── Register.js
-│       │   ├── caption
-│       │   │   └── CaptionGenerate.js
-│       │   ├── dashboard
-│       │   │   └── Dashboard.js
-│       │   ├── post
-│       │   │   └── PostCreate.js
-│       │   └── video
-│       │       ├── VideoList
-│       │       └── VideoUpload.js
-│       └── index.js
+│   ├── src
+│   │   ├── App.js
+│   │   ├── components
+│   │   │   ├── auth
+│   │   │   │   ├── Login.js
+│   │   │   │   └── Register.js
+│   │   │   ├── caption
+│   │   │   │   └── CaptionGenerate.js
+│   │   │   ├── dashboard
+│   │   │   │   └── Dashboard.js
+│   │   │   ├── post
+│   │   │   │   └── PostCreate.js
+│   │   │   └── video
+│   │   │       ├── VideoList
+│   │   │       └── VideoUpload.js
+│   │   └── index.js
+│   └── tablet
 ├── create_working_tree.sh
 ├── LICENSE
 ├── README.md
@@ -208,12 +211,14 @@ For example, "LangChain Integration and Content Refinement" depends on the compl
 │   │   │   ├── __init__.py
 │   │   │   └── routes.py
 │   │   ├── auth
-│   │   │   ├── auth_service.py
 │   │   │   ├── dashboard_service.py
+│   │   │   ├── facebook_auth.py
+│   │   │   ├── google_auth.py
 │   │   │   └── __init__.py
 │   │   ├── __init__.py
 │   │   ├── models
 │   │   │   ├── __init__.py
+│   │   │   ├── models.py
 │   │   │   ├── social_platform_model.py
 │   │   │   ├── subscription_model.py
 │   │   │   ├── user_model.py
@@ -226,8 +231,8 @@ For example, "LangChain Integration and Content Refinement" depends on the compl
 │   │       │   ├── facebook_agent_service.py
 │   │       │   ├── __init__.py
 │   │       │   ├── instagram_agent_service.py
+│   │       │   ├── threads_agent.py
 │   │       │   ├── tiktok_agent_service.py
-│   │       │   ├── threads_agent.py # INFO!: `threads_agent.py`(is a 4 day old app just released by Facebook, it's linked with instagram and has all twitter capabilites)
 │   │       │   └── youtube-shorts_agent_service.py
 │   │       ├── agent_service.py
 │   │       ├── descript_transcription.py
@@ -245,7 +250,7 @@ For example, "LangChain Integration and Content Refinement" depends on the compl
 │       └── logger.py
 └── Team_manual.md
 
-20 directories, 53 files
+23 directories, 56 files
 
 ```
 
