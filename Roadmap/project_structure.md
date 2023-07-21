@@ -1,7 +1,7 @@
 
 ```bash
 /postme
-├── /backend
+├── /server
 │   ├── /app
 │   │   ├── __init__.py  # Initialize your Flask application here
 │   │   ├── /api
@@ -63,9 +63,9 @@
 
 Here is a brief overview of what each directory and file will do:
 
-1. The `backend` directory will contain all the server-side code written in Python Flask.
+1. The `server` directory will contain all the server-side code written in Python Flask.
 
-2. The `app` directory inside `backend` will contain the main application code.
+2. The `app` directory inside `server` will contain the main application code.
 
 3. The `api` directory inside `app` will contain all the API endpoints required by the front-end.
 

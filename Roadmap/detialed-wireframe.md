@@ -57,10 +57,8 @@
 3. Run your tests frequently during development to catch and fix issues early.
 
 #### Task 11: Deployment
-1. Choose a hosting platform for your backend (e.g., AWS, Google Cloud, Heroku).
+1. Choose a hosting platform for your server (e.g., AWS, Google Cloud, Heroku).
 2. Follow the hosting platform's instructions to deploy your Flask application. This will typically involve setting up a new instance or app, installing your dependencies, and deploying your code.
 3. Test your deployed application to make sure everything works correctly. This will likely involve calling your endpoints and checking the responses, as well as monitoring the logs and performance metrics provided by the hosting platform.
 
-For each of these tasks, you'll want to create a new branch in your version control system (like Git). Each branch should be named after the task it's meant for (e.g., "user-authentication", "video-upload"). After completing a task and testing it thoroughly, merge the branch into your main branch. This approach will keep your codebase organized and make it easier to track the progress of each task.
-
-Please remember that software development often involves a lot of iteration and troubleshooting, so don't be discouraged if you run into issues along the way. Use your debugging skills, read error messages carefully, and don't hesitate to search for or ask for help if you're stuck. Also, don't forget to commit your changes frequently to avoid losing work and to create a detailed history of your project.
+For each of these tasks, we'll want to create a new branch in like Git. Each branch should be named after the task it's meant for (e.g., "user-authentication", "video-upload"). After completing a task and testing it thoroughly, merge the branch into your main branch. This approach will keep your codebase organized and make it easier to track the progress of each task.
