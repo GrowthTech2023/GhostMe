@@ -1,4 +1,4 @@
-```markdown
+
 Sure, I'd be glad to transform the given instructions into a detailed, step-by-step tutorial. Let's break it down:
 
 # Tutorial: Adding Functionality to Your Page & Setting Up Webhooks
@@ -57,4 +57,3 @@ Sure, I'd be glad to transform the given instructions into a detailed, step-by-s
 2. To be continued (as the original instructions do not provide details on how to set up webhooks).
 
 Please note that this tutorial lacks some information, especially the part about setting up webhooks. You may need to find additional resources or get further instructions to complete these parts.
-```
