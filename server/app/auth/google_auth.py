@@ -1,10 +1,11 @@
 # auth_service.py
 
 import os
-from flask import Flask, redirect, request, session
+from flask import Flask, redirect, request, session, render_template, url_for
 from flask_login import LoginManager, login_user, logout_user, login_required, UserMixin
 from oauthlib.oauth2 import WebApplicationClient
 import requests
+import json
 
 app = Flask(__name__)
 app.secret_key = os.getenv("APP_SECRET_KEY")  
@@ -14,7 +15,7 @@ login_manager.init_app(app)
 
 GOOGLE_CLIENT_ID = os.getenv("GOOGLE_CLIENT_ID")
 GOOGLE_CLIENT_SECRET = os.getenv("GOOGLE_CLIENT_SECRET")
-  
+
 class User(UserMixin):
   def __init__(self, id, name, email):
     self.id = id
@@ -38,7 +39,7 @@ def login_google():
     redirect_uri=request.base_url + "/callback",
     scope=["openid", "email", "profile"],
   )
-  
+
   return redirect(request_uri)
 
 @app.route('/login/google/callback')
@@ -94,9 +95,9 @@ def callback():
   return redirect("/dashboard")
 
 @app.route("/dashboard")
-@login_required
+# @login_required
 def dashboard():
-  return render_template('dashboard.html', user=session['profile'])
+  return render_template('template/index.html')
 
 @app.route("/logout")
 @login_required
@@ -105,4 +106,4 @@ def logout():
   return redirect(url_for("index"))
 
 if __name__ == "__main__":
-    app.run(ssl_context="adhoc")
+    app.run(debug=True, port='5000', ssl_context="adhoc")

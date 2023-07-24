@@ -9,15 +9,19 @@
 # dashboard_service.py
 
 from app import db
+from server import app
 from models import User, Video, SocialPlatform
 from flask_login import current_user
+from flask import request
+from werkzeug.utils import secure_filename
+import os
 
 @app.route('/connect/<platform>')
 def connect_platform(platform):
 
   # Handle OAuth flow for platform
   # Get access token
-  
+
   social_platform = SocialPlatform(
     user_id=current_user.id,
     platform=platform,
@@ -29,17 +33,17 @@ def connect_platform(platform):
 
   return {"message": "Platform connected"}
 
-@app.route('/upload', methods=['POST'])  
-def upload_video():
+@app.route('/upload', methods=['POST'])
+def upload_file():
+    if 'file' not in request.files:
+        return 'No file was uploaded. Please select a file and try again.', 400
 
-  video_file = request.files['video']
+    file = request.files['file']
 
-  video = Video(
-    user_id=current_user.id,
-    video_file=video_file
-  )
+    if file.filename == '':
+        return 'No file was selected. Please select a file and try again.', 400
 
-  db.session.add(video)
-  db.session.commit()
-
-  return {"message": "Video uploaded"}
+    if file:
+        filename = secure_filename(file.filename)
+        file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        return 'File successfully uploaded.', 200
